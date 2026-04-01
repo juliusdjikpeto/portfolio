@@ -148,17 +148,64 @@ nav {
 
 .light-theme .card { border: 1px solid #e2e8f0; }
 
-.card:hover { transform: translateY(-10px); border-color: var(--accent); }
-.card-icon { color: var(--accent); margin-bottom: 15px; }
+/* style.css */
 
-.tags span {
-    font-size: 0.75rem;
-    background: rgba(56, 189, 248, 0.1);
-    color: var(--accent);
-    padding: 4px 10px;
-    border-radius: 10px;
-    margin-right: 5px;
+/* ... (conserve le reste de ton code CSS) ... */
+
+/* --- 6. GRILLE PROJETS (MODIFICATION DES CARTES) --- */
+
+#projets { padding: 100px 5%; max-width: 1200px; margin: auto; }
+.section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
 }
+
+/* LE NOUVEAU STYLE "LIQUID GLASS" */
+.card {
+    background: rgba(255, 255, 255, 0.05); /* Arrière-plan semi-transparent */
+    padding: 30px;
+    border-radius: 30px; /* Bordures très arrondies comme Apple */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Bordure subtile et claire */
+    backdrop-filter: blur(15px); /* Le flou d'arrière-plan crucial */
+    -webkit-backdrop-filter: blur(15px); /* Pour Safari */
+    
+    transition: 
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), /* Animation douce */
+        box-shadow 0.4s ease, 
+        border-color 0.4s ease,
+        background-color 0.4s ease;
+    
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Ombre douce */
+    overflow: hidden; /* Pour contenir l'effet de liquide */
+}
+
+/* Ajustements pour le Mode Clair (Liquid Glass clair) */
+.light-theme .card { 
+    background: rgba(255, 255, 255, 0.4); 
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover { 
+    transform: translateY(-8px) scale(1.02); /* Élévation douce */
+    border-color: var(--accent); /* La bordure s'illumine au survol */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+/* Les icônes reçoivent un dégradé subtil */
+.card-icon { 
+    font-size: 2rem; 
+    margin-bottom: 15px; 
+    background: linear-gradient(135deg, var(--accent), #fff); 
+    -webkit-background-clip: text; 
+    background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+}
+
+/* ... (conserve le reste de ton code pour .card-content et .tags) ... */
 
 /* 7. FOOTER */
 footer { text-align: center; padding: 50px; background: var(--card-bg); }
