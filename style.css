@@ -1,0 +1,166 @@
+/* 1. VARIABLES */
+:root {
+    --bg: #0f172a;
+    --card-bg: #1e293b;
+    --accent: #38bdf8;
+    --text: #f1f5f9;
+    --text-dim: #94a3b8;
+    --nav-bg: rgba(15, 23, 42, 0.9);
+}
+
+.light-theme {
+    --bg: #ffffff;
+    --card-bg: #f8fafc;
+    --accent: #0369a1;      /* Bleu plus foncé pour le contraste */
+    --text: #0f172a;        /* Texte noir profond */
+    --text-dim: #475569;
+    --nav-bg: rgba(255, 255, 255, 0.95);
+}
+
+/* 2. RESET & BASE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif; /* Police sublime */
+    transition: 0.3s;
+    line-height: 1.6;
+}
+
+/* 3. NAVIGATION */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 20px 5%;
+    background: var(--nav-bg);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.highlight { color: var(--accent); }
+
+/* SEUL LE NOM DE FAMILLE EN MAJUSCULES */
+.nom-famille {
+    color: var(--accent);
+    text-transform: uppercase;
+}
+
+/* 4. BOUTON THEME */
+#theme-toggle {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    z-index: 1000;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: var(--card-bg);
+    color: var(--accent);
+    cursor: pointer;
+}
+
+/* 5. HERO SECTION */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* --- Dans la section 5. HERO SECTION de style.css --- */
+
+.profile-pic {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--accent);
+    margin-bottom: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    
+    /* --- AJOUTEZ CETTE LIGNE --- */
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* --- AJOUTEZ TOUT CE BLOC (L'effet de survol) --- */
+.profile-pic:hover {
+    transform: scale(1.08) rotate(3deg); /* Légère rotation + grossissement */
+    border-color: #ffffff; /* La bordure devient blanche au survol */
+    box-shadow: 0 15px 30px rgba(56, 189, 248, 0.4); /* Ombre plus forte et colorée */
+    cursor: pointer; /* Le curseur devient une main */
+}
+
+/* --- Pour le mode clair, on adapte la couleur de bordure au survol --- */
+.light-theme .profile-pic:hover {
+    border-color: var(--accent); /* Reste bleu ou devient plus foncé en mode clair */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.hero h1 {
+    font-size: 3.2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 15px;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 30px;
+    text-decoration: none;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn:hover { background: var(--accent); color: white; }
+
+/* 6. GRILLE PROJETS */
+#projets { padding: 100px 5%; max-width: 1200px; margin: auto; }
+.section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: 0.3s;
+}
+
+.light-theme .card { border: 1px solid #e2e8f0; }
+
+.card:hover { transform: translateY(-10px); border-color: var(--accent); }
+.card-icon { color: var(--accent); margin-bottom: 15px; }
+
+.tags span {
+    font-size: 0.75rem;
+    background: rgba(56, 189, 248, 0.1);
+    color: var(--accent);
+    padding: 4px 10px;
+    border-radius: 10px;
+    margin-right: 5px;
+}
+
+/* 7. FOOTER */
+footer { text-align: center; padding: 50px; background: var(--card-bg); }
+.social-links a { color: var(--text); margin: 0 15px; font-size: 1.8rem; transition: 0.3s; }
+.social-links a:hover { color: var(--accent); }

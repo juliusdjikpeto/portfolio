@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Étudiant Maths-Info</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <button id="theme-toggle" title="Changer de mode">
+        <i id="theme-icon" class="fas fa-sun"></i>
+    </button>
+
+    <nav>
+        <div class="logo">Maths<span class="highlight">&</span>Info</div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            
+            <div class="profile-container" data-aos="zoom-in">
+                <img src="ma-photo.jpg" alt="Ma Photo de Profil" class="profile-pic">
+            </div>
+            
+            <h1 data-aos="fade-down">Bonjour, je suis <span class="highlight">Julius Djikpeto</span></h1>
+            
+            <p data-aos="fade-up" data-aos-delay="200">
+                Étudiant en <span class="highlight">Mathématiques & Informatique</span>.<br>
+                Passionné par l'algorithmique et la résolution de problèmes.
+            </p>
+            
+            <div data-aos="zoom-in" data-aos-delay="400">
+                <a href="#projets" class="btn">Découvrir mes projets</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="projets">
+        <h2 class="section-title" data-aos="fade-right">Mes Projets</h2>
+        
+        <div class="grid">
+            <div class="card" data-aos="fade-up">
+                <div class="card-icon"><i class="fas fa-calculator fa-2x"></i></div>
+                <h3>Analyse Mathématique</h3>
+                <p>Modélisation de suites numériques et visualisation de données avec Python.</p>
+                <div class="tags"><span>Python</span><span>Maths</span></div>
+            </div>
+
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                <div class="card-icon"><i class="fas fa-microchip fa-2x"></i></div>
+                <h3>Algorithmique</h3>
+                <p>Implémentation d'algorithmes d'optimisation en C++.</p>
+                <div class="tags"><span>C</span><span>Algo</span><span>Scilab</span></div>
+            </div>
+
+            <div class="card" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-icon"><i class="fas fa-database fa-2x"></i></div>
+                <h3>Base de Données</h3>
+                <p>Conception d'un système SQL pour la gestion de données scolaires.</p>
+                <div class="tags"><span>SQL</span><span>Structure</span></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 | Futur Expert en Maths-Info</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/julius-djikpeto" target="_blank" title="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            
+            <a href="https://github.com/juliusdjikpeto" target="_blank" title="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            
+            <a href="mailto:juliusdjikpeto544@gmail.com" title="M'envoyer un e-mail">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialisation des animations au scroll
+        AOS.init({ duration: 800, once: true });
+
+        // Gestion du Mode Sombre / Clair
+        const themeBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+            if (document.body.classList.contains('light-theme')) {
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('portfolio-theme', 'light');
+            } else {
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('portfolio-theme', 'dark');
+            }
+        });
+
+        // Charger la préférence au démarrage
+        if (localStorage.getItem('portfolio-theme') === 'light') {
+            document.body.classList.add('light-theme');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+        }
+    </script>
+</body>
+</html>
