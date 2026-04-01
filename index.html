@@ -115,5 +115,22 @@
             themeIcon.classList.replace('fa-sun', 'fa-moon');
         }
     </script>
+    <script>
+    function updateGreeting() {
+        const greetingElement = document.getElementById('greeting');
+        const hour = new Date().getHours(); // Récupère l'heure locale du visiteur
+
+        if (hour >= 5 && hour < 12) {
+            greetingElement.textContent = "Bonjour";
+        } else if (hour >= 12 && hour < 18) {
+            greetingElement.textContent = "Bon après-midi";
+        } else {
+            greetingElement.textContent = "Bonsoir";
+        }
+    }
+
+    // Lance la fonction immédiatement au chargement de la page
+    updateGreeting();
+</script>
 </body>
 </html>
