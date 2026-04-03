@@ -89,48 +89,7 @@
         </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // Initialisation des animations au scroll
-        AOS.init({ duration: 800, once: true });
-
-        // Gestion du Mode Sombre / Clair
-        const themeBtn = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        
-        themeBtn.addEventListener('click', () => {
-            document.body.classList.toggle('light-theme');
-            if (document.body.classList.contains('light-theme')) {
-                themeIcon.classList.replace('fa-sun', 'fa-moon');
-                localStorage.setItem('portfolio-theme', 'light');
-            } else {
-                themeIcon.classList.replace('fa-moon', 'fa-sun');
-                localStorage.setItem('portfolio-theme', 'dark');
-            }
-        });
-
-        // Charger la préférence au démarrage
-        if (localStorage.getItem('portfolio-theme') === 'light') {
-            document.body.classList.add('light-theme');
-            themeIcon.classList.replace('fa-sun', 'fa-moon');
-        }
-    </script>
-    <script>
-    function updateGreeting() {
-        const greetingElement = document.getElementById('greeting');
-        const hour = new Date().getHours(); // Récupère l'heure locale du visiteur
-
-        if (hour >= 5 && hour < 12) {
-            greetingElement.textContent = "Bonjour";
-        } else if (hour >= 12 && hour < 18) {
-            greetingElement.textContent = "Bon après-midi";
-        } else {
-            greetingElement.textContent = "Bonsoir";
-        }
-    }
-
-    // Lance la fonction immédiatement au chargement de la page
-    updateGreeting();
-</script>
+    <script src="script.js"></script>
+   
 </body>
 </html>
