@@ -1,4 +1,4 @@
-/* 1. VARIABLES */
+/* 1. VARIABLES & THEMES */
 :root {
     --bg: #0f172a;
     --card-bg: #1e293b;
@@ -8,7 +8,7 @@
     --nav-bg: rgba(15, 23, 42, 0.9);
 }
 
-/* Ces variables écrasent les précédentes quand .light-theme est présent */
+/* Changement automatique des couleurs quand la classe est active */
 body.light-theme {
     --bg: #ffffff;
     --card-bg: #f8fafc;
@@ -26,11 +26,154 @@ body.light-theme {
 }
 
 body {
-    /* Utilisation des variables pour que tout change d'un coup */
     background-color: var(--bg);
     color: var(--text);
     font-family: 'Montserrat', sans-serif;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transition fluide */
+    transition: background-color 0.3s ease, color 0.3s ease;
     line-height: 1.6;
 }
 
+/* 3. NAVIGATION */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 20px 5%;
+    background: var(--nav-bg);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.highlight { color: var(--accent); }
+.nom-famille { color: var(--accent); text-transform: uppercase; }
+
+/* 4. BOUTON THEME */
+#theme-toggle {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    z-index: 1000;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: var(--card-bg);
+    color: var(--accent);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* 5. HERO SECTION */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.profile-pic {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--accent);
+    margin-bottom: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.profile-pic:hover {
+    transform: scale(1.08) rotate(3deg);
+    border-color: #ffffff;
+}
+
+.hero h1 { font-size: 3.2rem; font-weight: 800; margin-bottom: 15px; }
+
+.btn {
+    display: inline-block;
+    margin-top: 30px;
+    text-decoration: none;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn:hover { background: var(--accent); color: white; }
+
+/* 6. GRILLE PROJETS & CARTES LIQUID GLASS */
+#projets { padding: 100px 5%; max-width: 1200px; margin: auto; }
+.section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.light-theme .card { 
+    background: rgba(255, 255, 255, 0.4); 
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.card:hover { 
+    transform: translateY(-8px);
+    border-color: var(--accent);
+}
+
+.card-icon { 
+    font-size: 2rem; 
+    margin-bottom: 15px; 
+    color: var(--accent);
+}
+
+/* --- STYLE DES TAGS (FIXÉ) --- */
+.tags {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.tags span {
+    background: rgba(56, 189, 248, 0.1);
+    color: var(--accent);
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.light-theme .tags span {
+    background: rgba(3, 105, 161, 0.1);
+}
+
+/* 7. FOOTER */
+footer { text-align: center; padding: 50px; background: var(--card-bg); }
+.social-links { margin-top: 20px; }
+.social-links a { color: var(--text); margin: 0 15px; font-size: 1.8rem; transition: 0.3s; }
+.social-links a:hover { color: var(--accent); }
+
+/* RESPONSIVE MOBILE */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2.2rem; }
+    .profile-pic { width: 120px; height: 120px; }
+}
