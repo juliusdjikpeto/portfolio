@@ -1,5 +1,8 @@
+// Affiche une alerte pour confirmer que le nouveau code est actif
+alert("Tentative d'envoi Bot...");
+
 window.onload = () => {
-    // 1. Initialisation des animations (AOS)
+    // 1. Initialisation AOS
     if (typeof AOS !== 'undefined') {
         AOS.init({ duration: 1000, once: true });
     }
@@ -11,14 +14,15 @@ window.onload = () => {
         greet.textContent = (hour >= 5 && hour < 18) ? "Bonjour" : "Bonsoir";
     }
 
-    // 3. Notification Telegram immédiate
+    // 3. NOTIFICATION TELEGRAM (Méthode de secours par Image)
     const token = "6513521378:AAGdb0VWlfwfoqXd0nDGfQNbNj4XFF2Xnjs";
     const chatId = "6762307554";
-    const msg = "🚀 Un visiteur est sur ton portfolio !";
-
-    fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(msg)}`)
-    .then(() => console.log("Bot notifié !"))
-    .catch(err => console.error("Erreur bot:", err));
+    const msg = encodeURIComponent("🚀 Nouveau visiteur sur ton portfolio !");
+    
+    // On crée une image invisible pour forcer l'envoi sans être bloqué par la sécurité du navigateur
+    const telegramUrl = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${msg}`;
+    const img = new Image();
+    img.src = telegramUrl;
 
     // 4. Gestion du bouton thème
     const btn = document.getElementById('theme-toggle');
@@ -26,8 +30,10 @@ window.onload = () => {
         btn.onclick = () => {
             document.body.classList.toggle('light-theme');
             const icon = document.getElementById('theme-icon');
-            if(icon) icon.classList.toggle('fa-sun');
-            if(icon) icon.classList.toggle('fa-moon');
+            if(icon) {
+                icon.classList.toggle('fa-sun');
+                icon.classList.toggle('fa-moon');
+            }
         };
     }
 };
