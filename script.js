@@ -1,4 +1,5 @@
 // --- 1. INITIALISATION GÉNÉRALE ---
+alert("Le script est bien chargé !");
 window.onload = () => {
     
     // Initialisation AOS (Animations)
