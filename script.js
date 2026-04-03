@@ -1,5 +1,4 @@
 // --- 1. INITIALISATION GÉNÉRALE ---
-alert("Le script est bien chargé !");
 window.onload = () => {
     
     // Initialisation AOS (Animations)
@@ -62,14 +61,7 @@ function updateGreeting() {
 function notifyTelegram() {
     const token = "6513521378:AAGdb0VWlfwfoqXd0nDGfQNbNj4XFF2Xnjs"; 
     const chatId = "6762307554"; 
+    const msg = "🚀 Test direct : quelqu'un est sur le site !";
     
-    fetch('https://ipapi.co/json/')
-        .then(res => res.json())
-        .then(data => {
-            const msg = `🚀 Visiteur sur ton Portfolio !\n📍 Ville : ${data.city || '?'}\n🌍 Pays : ${data.country_name || '?'}\n📱 Appareil : ${navigator.userAgent.slice(0, 30)}...`;
-            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(msg)}`);
-        })
-        .catch(() => {
-            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=🚀 Nouveau visiteur !`);
-        });
+    fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(msg)}`);
 }
