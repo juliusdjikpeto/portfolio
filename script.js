@@ -1,5 +1,5 @@
 // Affiche une alerte pour confirmer que le nouveau code est actif
-alert("Nouvelle mise à jour");
+alert("Nouvelle mise à jou");
 
 window.onload = () => {
     // 1. Initialisation AOS
