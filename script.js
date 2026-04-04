@@ -7,10 +7,10 @@ window.onload = () => {
         });
     }
 
-    // 2. BONJOUR / BON APRÈS-MIDI / BONSOIR (CORRIGÉ)
+    // 2. LOGIQUE HORAIRE (Basée sur TON navigateur)
     const greet = document.getElementById('greeting');
     if (greet) {
-        const hour = new Date().getHours();
+        const hour = new Date().getHours(); // Récupère l'heure de ton appareil
         if (hour >= 5 && hour < 12) {
             greet.textContent = "Bonjour";
         } else if (hour >= 12 && hour < 18) {
@@ -20,7 +20,7 @@ window.onload = () => {
         }
     }
 
-    // 3. GESTION DU BOUTON DE THÈME (SOMBRE/CLAIR)
+    // 3. GESTION DU BOUTON DE THÈME
     const btn = document.getElementById('theme-toggle');
     if (btn) {
         btn.onclick = () => {
@@ -33,28 +33,36 @@ window.onload = () => {
         };
     }
 
-   // 4. NOTIFICATION SÉCURISÉE VIA VERCEL
+    // 4. RÉCUPÉRATION DES INFOS ET ENVOI SÉCURISÉ À VERCEL
+    // Note : On ne met plus de Token ici, c'est Vercel qui le gère en secret !
     fetch('https://ipapi.co/json/')
         .then(response => response.json())
         .then(data => {
             const agent = navigator.userAgent;
             const platform = navigator.platform;
 
-            // On prépare le message
+            // On construit le message avec TES données de localisation (data)
             const message = encodeURIComponent(
                 `🚀 Nouvelle visite !\n` +
-                `📍 Ville : ${data.city || '?'}\n` +
-                `🌍 Pays : ${data.country_name || '?'}\n` +
+                `📍 Ville : ${data.city || 'Inconnue'}\n` +
+                `🌍 Pays : ${data.country_name || 'Inconnu'}\n` +
                 `🌐 IP : ${data.ip || '?'}\n` +
                 `--------------------------\n` +
                 `💻 Système : ${platform}\n` +
-                `📱 Signature : ${agent.slice(0, 60)}...`
+                `📱 Navigateur : ${agent.slice(0, 60)}...`
             );
 
-            // ON APPELLE VERCEL (Remplace par ton URL si elle change)
+            // URL de TA fonction Vercel (à vérifier sur ton tableau de bord Vercel)
             const vercelUrl = `https://portfolio-lilac-six-60.vercel.app/api/envoi?msg=${message}`;
 
             fetch(vercelUrl)
-                .then(() => console.log("Notification sécurisée envoyée !"))
-                .catch(err => console.error("Erreur de transmission :", err));
+                .then(() => console.log("Notification sécurisée envoyée avec succès !"))
+                .catch(err => console.error("Erreur d'envoi vers Vercel :", err));
+        })
+        .catch(err => {
+            console.error("Erreur de localisation :", err);
+            // Secours si ipapi est bloqué
+            const fallbackMsg = encodeURIComponent("🚀 Visiteur détecté (Localisation bloquée)");
+            fetch(`https://portfolio-lilac-six-60.vercel.app/api/envoi?msg=${fallbackMsg}`);
         });
+};
