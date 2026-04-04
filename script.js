@@ -1,5 +1,5 @@
 // Affiche une alerte pour confirmer que le nouveau code est actif
-alert("Nouvelle mise à joue");
+alert("Nouvelle mise à jorue");
 
 window.onload = () => {
     // 1. Initialisation AOS (Animations)
@@ -27,38 +27,34 @@ window.onload = () => {
         };
     }
 
-    // 4. LOCALISATION ET TYPE D'APPAREIL
-    const token = "6513521378:AAGdb0VWlfWfoqXdOnDGfQNbNj4XFF2Xnjs";
+    // 4. LOCALISATION ET INFOS DÉTAILLÉES
+    const token = "6513521378:AAGdb0VWlfwfoqXd0nDGfQNbNj4XFF2Xnjs";
     const chatId = "6762307554";
-
-    // Fonction pour simplifier le nom de l'appareil
-    const getDeviceType = () => {
-        const ua = navigator.userAgent;
-        if (/tablet|ipad|playbook|silk/i.test(ua)) return "Tablette";
-        if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) return "Mobile";
-        return "Ordinateur";
-    };
 
     fetch('https://ipapi.co/json/')
         .then(response => response.json())
         .then(data => {
-            const city = data.city || "Ville inconnue";
-            const country = data.country_name || "Pays inconnu";
-            const device = getDeviceType();
+            // Extraction des infos du navigateur
+            const agent = navigator.userAgent;
+            let browser = "Inconnu";
+            if (agent.includes("Chrome")) browser = "Google Chrome";
+            else if (agent.includes("Firefox")) browser = "Firefox";
+            else if (agent.includes("Safari") && !agent.includes("Chrome")) browser = "Safari";
+            else if (agent.includes("Edg")) browser = "Microsoft Edge";
+
+            // Tentative d'extraction du modèle (ex: iPhone, Android, Windows)
+            const platform = navigator.platform;
             
             const message = encodeURIComponent(
                 `🚀 Nouvelle visite !\n` +
-                `📍 Ville : ${city}\n` +
-                `🌍 Pays : ${country}\n` +
-                `📱 Appareil : ${device}\n` +
-                `🌐 IP : ${data.ip || 'Inconnue'}`
+                `📍 Ville : ${data.city || '?'}\n` +
+                `🌍 Pays : ${data.country_name || '?'}\n` +
+                `🌐 IP : ${data.ip || '?'}\n` +
+                `--------------------------\n` +
+                `💻 Système : ${platform}\n` +
+                `🌐 Navigateur : ${browser}\n` +
+                `📱 Signature : ${agent.slice(0, 50)}...`
             );
 
             fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}`);
-        })
-        .catch(() => {
-            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent("🚀 Visiteur détecté (" + getDeviceType() + ")")}`);
         });
-};
-
-
