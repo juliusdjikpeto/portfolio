@@ -15,7 +15,7 @@ window.onload = () => {
     }
 
     // 3. NOTIFICATION TELEGRAM (Méthode de secours par Image)
-    const token = "6513521378:AAGdb0VWlfwfoqXd0nDGfQNbNj4XFF2Xnjs";
+    const token = "6513521378:AAGdb0VWlfWfoqXdOnDGfQNbNj4XFF2Xnjs";
     const chatId = "6762307554";
     const msg = encodeURIComponent("🚀 Nouveau visiteur sur ton portfolio !");
     
