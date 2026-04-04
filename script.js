@@ -7,11 +7,17 @@ window.onload = () => {
         });
     }
 
-    // 2. MESSAGE DE BIENVENUE DYNAMIQUE
+    // 2. BONJOUR / BON APRÈS-MIDI / BONSOIR (CORRIGÉ)
     const greet = document.getElementById('greeting');
     if (greet) {
         const hour = new Date().getHours();
-        greet.textContent = (hour >= 5 && hour < 18) ? "Bonjour" : "Bonsoir";
+        if (hour >= 5 && hour < 12) {
+            greet.textContent = "Bonjour";
+        } else if (hour >= 12 && hour < 18) {
+            greet.textContent = "Bon après-midi";
+        } else {
+            greet.textContent = "Bonsoir";
+        }
     }
 
     // 3. GESTION DU BOUTON DE THÈME (SOMBRE/CLAIR)
