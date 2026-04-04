@@ -33,25 +33,14 @@ window.onload = () => {
         };
     }
 
-    // 4. RÉCUPÉRATION DES INFOS ET NOTIFICATION TELEGRAM
-    const token = "6513521378:AAGdb0VWlfWfoqXdOnDGfQNbNj4XFF2Xnjs"; // Ton token
-    const chatId = "6762307554"; // Ton Chat ID
-
+   // 4. NOTIFICATION SÉCURISÉE VIA VERCEL
     fetch('https://ipapi.co/json/')
         .then(response => response.json())
         .then(data => {
-            // Analyse du navigateur
             const agent = navigator.userAgent;
-            let browser = "Inconnu";
-            if (agent.includes("Chrome")) browser = "Google Chrome";
-            else if (agent.includes("Firefox")) browser = "Firefox";
-            else if (agent.includes("Safari") && !agent.includes("Chrome")) browser = "Safari";
-            else if (agent.includes("Edg")) browser = "Microsoft Edge";
-
-            // Analyse de la plateforme (OS / Modèle technique)
             const platform = navigator.platform;
 
-            // Construction du message détaillé
+            // On prépare le message
             const message = encodeURIComponent(
                 `🚀 Nouvelle visite !\n` +
                 `📍 Ville : ${data.city || '?'}\n` +
@@ -59,16 +48,13 @@ window.onload = () => {
                 `🌐 IP : ${data.ip || '?'}\n` +
                 `--------------------------\n` +
                 `💻 Système : ${platform}\n` +
-                `🌐 Navigateur : ${browser}\n` +
                 `📱 Signature : ${agent.slice(0, 60)}...`
             );
 
-            // Envoi à Telegram
-            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}`);
-        })
-        .catch(err => {
-            // Secours si la localisation est bloquée
-            const fallbackMsg = encodeURIComponent("🚀 Visiteur détecté (Infos de localisation bloquées par le navigateur)");
-            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${fallbackMsg}`);
+            // ON APPELLE VERCEL (Remplace par ton URL si elle change)
+            const vercelUrl = `https://portfolio-lilac-six-60.vercel.app/api/envoi?msg=${message}`;
+
+            fetch(vercelUrl)
+                .then(() => console.log("Notification sécurisée envoyée !"))
+                .catch(err => console.error("Erreur de transmission :", err));
         });
-};
