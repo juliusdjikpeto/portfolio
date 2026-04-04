@@ -2,7 +2,7 @@
 alert("Nouvelle mise à jou");
 
 window.onload = () => {
-    // 1. Initialisation AOS
+    // 1. Initialisation AOS (Animations)
     if (typeof AOS !== 'undefined') {
         AOS.init({ duration: 1000, once: true });
     }
@@ -14,17 +14,7 @@ window.onload = () => {
         greet.textContent = (hour >= 5 && hour < 18) ? "Bonjour" : "Bonsoir";
     }
 
-    // 3. NOTIFICATION TELEGRAM (Méthode de secours par Image)
-    const token = "6513521378:AAGdb0VWlfWfoqXdOnDGfQNbNj4XFF2Xnjs";
-    const chatId = "6762307554";
-    const msg = encodeURIComponent("🚀 Nouveau visiteur sur ton portfolio !");
-    
-    // On crée une image invisible pour forcer l'envoi sans être bloqué par la sécurité du navigateur
-    const telegramUrl = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${msg}`;
-    const img = new Image();
-    img.src = telegramUrl;
-
-    // 4. Gestion du bouton thème
+    // 3. Gestion du bouton thème
     const btn = document.getElementById('theme-toggle');
     if (btn) {
         btn.onclick = () => {
@@ -36,4 +26,31 @@ window.onload = () => {
             }
         };
     }
+
+    // 4. LOCALISATION ET NOTIFICATION TELEGRAM
+    const token = "6513521378:AAGdb0VWlfwfoqXd0nDGfQNbNj4XFF2Xnjs";
+    const chatId = "6762307554";
+
+    // On récupère les infos de localisation via ipapi (plus fiable)
+    fetch('https://ipapi.co/json/')
+        .then(response => response.json())
+        .then(data => {
+            const city = data.city || "Ville inconnue";
+            const country = data.country_name || "Pays inconnu";
+            const ip = data.ip || "IP masquée";
+            
+            const message = encodeURIComponent(
+                `🚀 Nouvelle visite !\n` +
+                `📍 Ville : ${city}\n` +
+                `🌍 Pays : ${country}\n` +
+                `🌐 IP : ${ip}`
+            );
+
+            // Envoi à Telegram
+            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}`);
+        })
+        .catch(err => {
+            // Si la localisation échoue (bloquée par un VPN ou CSP), on envoie quand même une alerte simple
+            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent("🚀 Visiteur détecté (localisation bloquée)")}`);
+        });
 };
