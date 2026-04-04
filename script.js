@@ -34,35 +34,26 @@ window.onload = () => {
     }
 
     // 4. RÉCUPÉRATION DES INFOS ET ENVOI SÉCURISÉ À VERCEL
-    // Note : On ne met plus de Token ici, c'est Vercel qui le gère en secret !
-    fetch('https://ipapi.co/json/')
-        .then(response => response.json())
-        .then(data => {
-            const agent = navigator.userAgent;
-            const platform = navigator.platform;
+  // ... (début du code inchangé) ...
 
-            // On construit le message avec TES données de localisation (data)
-            const message = encodeURIComponent(
-                `🚀 Nouvelle visite !\n` +
-                `📍 Ville : ${data.city || 'Inconnue'}\n` +
-                `🌍 Pays : ${data.country_name || 'Inconnu'}\n` +
-                `🌐 IP : ${data.ip || '?'}\n` +
-                `--------------------------\n` +
-                `💻 Système : ${platform}\n` +
-                `📱 Navigateur : ${agent.slice(0, 60)}...`
-            );
+fetch('https://ipapi.co/json/')
+    .then(response => response.json())
+    .then(data => {
+        // Construction du message avec des vrais sauts de ligne
+        const text = `🚀 Nouvelle visite !
+📍 Ville : ${data.city || '?'}
+🌍 Pays : ${data.country_name || '?'}
+🌐 IP : ${data.ip || '?'}
+--------------------------
+💻 Système : ${navigator.platform}
+📱 Signature : ${navigator.userAgent.slice(0, 50)}...`;
 
-            // URL de TA fonction Vercel (à vérifier sur ton tableau de bord Vercel)
-            const vercelUrl = `https://portfolio-lilac-six-60.vercel.app/api/envoi?msg=${message}`;
+        // On encode TOUT le texte d'un coup pour que Telegram comprenne les sauts de ligne
+        const message = encodeURIComponent(text);
 
-            fetch(vercelUrl)
-                .then(() => console.log("Notification sécurisée envoyée avec succès !"))
-                .catch(err => console.error("Erreur d'envoi vers Vercel :", err));
-        })
-        .catch(err => {
-            console.error("Erreur de localisation :", err);
-            // Secours si ipapi est bloqué
-            const fallbackMsg = encodeURIComponent("🚀 Visiteur détecté (Localisation bloquée)");
-            fetch(`https://portfolio-lilac-six-60.vercel.app/api/envoi?msg=${fallbackMsg}`);
-        });
-};
+        const vercelUrl = `https://portfolio-lilac-six-60.vercel.app/api/envoi?msg=${message}`;
+
+        fetch(vercelUrl)
+            .then(() => console.log("Message formaté envoyé !"))
+            .catch(err => console.error("Erreur :", err));
+    });
