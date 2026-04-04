@@ -1,5 +1,5 @@
 // Affiche une alerte pour confirmer que le nouveau code est actif
-alert("Tentative d'envoi Bot...");
+alert("Nouvelle mise à jour");
 
 window.onload = () => {
     // 1. Initialisation AOS
