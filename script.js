@@ -1,5 +1,5 @@
 // Affiche une alerte pour confirmer que le nouveau code est actif
-alert("Nouvelle mise à jou");
+alert("Nouvelle mise à joue");
 
 window.onload = () => {
     // 1. Initialisation AOS (Animations)
@@ -27,30 +27,38 @@ window.onload = () => {
         };
     }
 
-    // 4. LOCALISATION ET NOTIFICATION TELEGRAM
+    // 4. LOCALISATION ET TYPE D'APPAREIL
     const token = "6513521378:AAGdb0VWlfWfoqXdOnDGfQNbNj4XFF2Xnjs";
     const chatId = "6762307554";
 
-    // On récupère les infos de localisation via ipapi (plus fiable)
+    // Fonction pour simplifier le nom de l'appareil
+    const getDeviceType = () => {
+        const ua = navigator.userAgent;
+        if (/tablet|ipad|playbook|silk/i.test(ua)) return "Tablette";
+        if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) return "Mobile";
+        return "Ordinateur";
+    };
+
     fetch('https://ipapi.co/json/')
         .then(response => response.json())
         .then(data => {
             const city = data.city || "Ville inconnue";
             const country = data.country_name || "Pays inconnu";
-            const ip = data.ip || "IP masquée";
+            const device = getDeviceType();
             
             const message = encodeURIComponent(
                 `🚀 Nouvelle visite !\n` +
                 `📍 Ville : ${city}\n` +
                 `🌍 Pays : ${country}\n` +
-                `🌐 IP : ${ip}`
+                `📱 Appareil : ${device}\n` +
+                `🌐 IP : ${data.ip || 'Inconnue'}`
             );
 
-            // Envoi à Telegram
             fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}`);
         })
-        .catch(err => {
-            // Si la localisation échoue (bloquée par un VPN ou CSP), on envoie quand même une alerte simple
-            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent("🚀 Visiteur détecté (localisation bloquée)")}`);
+        .catch(() => {
+            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent("🚀 Visiteur détecté (" + getDeviceType() + ")")}`);
         });
 };
+
+
