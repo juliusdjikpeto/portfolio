@@ -44,6 +44,7 @@ window.onload = () => {
 🌍 Pays : ${data.country_name || 'Inconnu'}
 🌐 IP : ${data.ip || '?'}
 
+
 --------------------------
 💻 Système : ${navigator.platform}
 📱 Signature : ${navigator.userAgent.slice(0, 50)}...`;
