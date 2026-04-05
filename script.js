@@ -35,6 +35,7 @@ window.onload = () => {
 
     // 4. RÉCUPÉRATION DES INFOS ET ENVOI SÉCURISÉ À VERCEL
   // ... (début du code inchangé) ...
+    // ... (début du code inchangé) ...
 
 fetch('https://ipapi.co/json/')
     .then(response => response.json())
@@ -57,3 +58,4 @@ fetch('https://ipapi.co/json/')
             .then(() => console.log("Message formaté envoyé !"))
             .catch(err => console.error("Erreur :", err));
     });
+
