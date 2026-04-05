@@ -1,10 +1,13 @@
 window.onload = () => {
     // 1. INITIALISATION DES ANIMATIONS (AOS)
     if (typeof AOS !== 'undefined') {
-        AOS.init({ duration: 1000, once: true });
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
     }
 
-    // 2. LOGIQUE HORAIRE (Locale au visiteur)
+    // 2. BONJOUR / BON APRÈS-MIDI / BONSOIR (Basé sur TON heure locale)
     const greet = document.getElementById('greeting');
     if (greet) {
         const hour = new Date().getHours();
@@ -30,11 +33,11 @@ window.onload = () => {
         };
     }
 
-    // 4. RÉCUPÉRATION DES INFOS ET ENVOI À VERCEL
+    // 4. RÉCUPÉRATION DES INFOS ET ENVOI SÉCURISÉ À VERCEL
     fetch('https://ipapi.co/json/')
         .then(response => response.json())
         .then(data => {
-            // On utilise les backticks (`) pour créer un message avec des sauts de ligne réels
+            // On construit le texte avec des backticks (`) pour garder les sauts de ligne
             const text = `🚀 Nouvelle visite !
 
 📍 Ville : ${data.city || 'Inconnue'}
@@ -45,18 +48,20 @@ window.onload = () => {
 💻 Système : ${navigator.platform}
 📱 Signature : ${navigator.userAgent.slice(0, 50)}...`;
 
-            // On encode tout le bloc de texte pour préserver la mise en forme
+            // On encode TOUT le texte d'un coup. 
+            // Cela transforme les sauts de ligne en code compréhensible par Telegram (%0A)
             const message = encodeURIComponent(text);
 
-            // URL de TA fonction Vercel
+            // URL de TA fonction Vercel (Vérifie bien que c'est le bon lien lilac-six-60)
             const vercelUrl = `https://portfolio-lilac-six-60.vercel.app/api/envoi?msg=${message}`;
 
             fetch(vercelUrl)
-                .then(() => console.log("Notification envoyée !"))
-                .catch(err => console.error("Erreur Vercel :", err));
+                .then(() => console.log("Notification envoyée avec succès !"))
+                .catch(err => console.error("Erreur d'envoi vers Vercel :", err));
         })
         .catch(err => {
-            const fallback = encodeURIComponent("🚀 Visiteur détecté (Infos masquées)");
-            fetch(`https://portfolio-lilac-six-60.vercel.app/api/envoi?msg=${fallback}`);
+            console.error("Erreur de localisation :", err);
+            const fallbackMsg = encodeURIComponent("🚀 Visiteur détecté (Localisation bloquée)");
+            fetch(`https://portfolio-lilac-six-60.vercel.app/api/envoi?msg=${fallbackMsg}`);
         });
 };
