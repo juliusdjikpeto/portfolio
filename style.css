@@ -178,6 +178,36 @@ footer { text-align: center; padding: 50px; background: var(--card-bg); }
     .profile-pic { width: 120px; height: 120px; }
 }
 
+/* Style pour les liens des projets */
+.card-link {
+    text-decoration: none;
+    color: inherit; /* Garde les couleurs d'origine */
+    display: block;
+}
+
+.view-project {
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--highlight-color, #00d2ff); /* Utilise ta couleur d'accent */
+    transition: transform 0.3s ease;
+}
+
+.card:hover .view-project {
+    transform: translateX(10px); /* Petit mouvement de flèche au survol */
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
 .badge-dev {
     background-color: #ff9800; /* Orange pour attirer l'attention */
     color: white;
