@@ -177,3 +177,15 @@ footer { text-align: center; padding: 50px; background: var(--card-bg); }
     .hero h1 { font-size: 2.2rem; }
     .profile-pic { width: 120px; height: 120px; }
 }
+
+.badge-dev {
+    background-color: #ff9800; /* Orange pour attirer l'attention */
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 10px;
+}
